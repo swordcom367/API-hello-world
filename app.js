@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const serveStatic = require('serve-static');
 const prodictroutes = require('./api/routes/products');
 
-app.use('/static',express.static('./api/public'));
 
-app.use('/products',prodictroutes);
+app.use('/products',cors(),prodictroutes);
 
 module.exports = app;

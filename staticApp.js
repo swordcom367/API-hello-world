@@ -3,6 +3,6 @@ const app = express();
 const serveStatic = require('serve-static');
 
 
-app.use('/static',serveStatic('./api/public', { 'public': ['index.html'] }));
+app.use('/',serveStatic('./api/public', { 'public': ['index.html'] }));
 
 module.exports = app;

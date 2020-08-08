@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const sql = require('mssql')
-var Connection = require('tedious').Connection;  
+const sqlHelper = require("./helper functions/sqlHelper.js")
 //---------------------set up app
 var mssqlConfig = {
     server: "localhost",
@@ -9,7 +9,6 @@ var mssqlConfig = {
     user: 'adm', 
     password: 'admin'
 }
-
 //---------------------routes
 router.get('/',(req,res,next) => {
     //-------------------geting parramiters
@@ -17,36 +16,24 @@ router.get('/',(req,res,next) => {
     console.log(req.body);
     console.log(input +" input");
     //-------------------database grabing
-    let connection = sql.connect(mssqlConfig,(err)=> {
-        if(err) {
-            console.log(err);
-        } else {
-            getData(function(result) {
-                    res.status(200).json({
-                        message: "Handling Get Reqests",
-                        data: result.recordset
-                    });
-                },input);
-            }
+    sqlHelper.getData(function(result) {
+        res.status(200).json({
+            message: "Handling Get Reqests",
+            data: result.recordset
         });
+    },input);
     //-------------------responce
 });
 router.get('/:productId',(req,res,next) =>  {
     //-------------------geting parramiters   
     var id = req.params.productId;
     //-------------------database grabing
-    let connection = sql.connect(mssqlConfig,(err) => {
-        if(err) {
-            console.log(err);
-        } else {
-            getData( function(result) {
-                res.status(200).json( {
-                    message: "prodict secrion", 
-                    username: result.recordset
-                });
-            },id);
-        }
-    })
+    sqlHelper.getData( function(result) {
+        res.status(200).json( {
+            message: "prodict secrion", 
+            username: result.recordset
+        });
+    },id);
 });
 
 router.post('/',(req,res,next)=> {

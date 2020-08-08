@@ -4,7 +4,6 @@ $(document).ready(function() {
     // all custom jQuery will go here
     $(".get").click(function() {
         console.log($("#username").val());
-        if()
         $.ajax({
             type: 'GET',
             crossDomain: true,

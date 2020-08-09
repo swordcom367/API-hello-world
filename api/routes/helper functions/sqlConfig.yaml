@@ -1,0 +1,5 @@
+connectionConfig:
+  server: "localhost"
+  database: "foo" 
+  user: 'adm'
+  password: 'admin'

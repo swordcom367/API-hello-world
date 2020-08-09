@@ -1,13 +1,20 @@
 const sql = require('mssql');
-var mssqlConfig = {
-    server: "localhost",
-    database: "foo",
-    user: 'adm', 
-    password: 'admin'
-}
+const yaml = require('js-yaml')
+const fs = require('fs');
+const path = require('path');
+
+let config;
+fs.readFile(path.resolve(__dirname, "sqlConfig.yaml"),'utf8' , function (err,data) {
+    if (err) {
+        return console.log(err);
+    }
+    config = yaml.safeLoad(data);
+    console.log(config.connectionConfig);
+});
+
 // a publicly exposed modual
 module.exports.getData = function getData(_callback,peramiter) { 
-    let connection = sql.connect(mssqlConfig,(err) => {
+    let connection = sql.connect(config.connectionConfig,(err) => {
         if(err) {
         return console.log(err);
         } else {
@@ -16,12 +23,12 @@ module.exports.getData = function getData(_callback,peramiter) {
             console.log(peramiter);
             if(peramiter != undefined) {
                 if(peramiter == "all") {
-                    sqlQuery= "select user_name,entitlement from foo.dbo.Accounts"
+                    sqlQuery= "select user_name,entitlement,password from foo.dbo.Accounts"
                 } else {
-                    sqlQuery = `select user_name,entitlement from foo.dbo.Accounts where user_name='${peramiter}';`
+                    sqlQuery = `select user_name,entitlement,password from foo.dbo.Accounts where user_name='${peramiter}';`
                 }
             } else {
-                sqlQuery= "select user_name,entitlement from foo.dbo.Accounts"
+                sqlQuery= "select user_name,entitlement,password from foo.dbo.Accounts"
             }
             request.query(sqlQuery, function (err, data) {
                     

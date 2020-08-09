@@ -8,8 +8,8 @@ MySqlonnectionConfig:
   user: "test"
   password: "test"
   database: "Users"
-databaces:
- mSql: "foo"
- mySql: "Users"
+# this flag sets whether you are using my sql or microsoft sql 
+# mySql= my Sql
+# mSql = microsoft sql
 flags:
   databace: 'mySql'

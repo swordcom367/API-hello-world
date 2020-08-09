@@ -1,5 +1,15 @@
-connectionConfig:
+MSqlconnectionConfig:
   server: "localhost"
   database: "foo" 
   user: 'adm'
   password: 'admin'
+MySqlonnectionConfig:
+  host: "localhost"
+  user: "test"
+  password: "test"
+  database: "Users"
+databaces:
+ mSql: "foo"
+ mySql: "Users"
+flags:
+  databace: 'mySql'

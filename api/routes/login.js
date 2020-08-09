@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const sqlHelper = require("./helper functions/sqlHelper")
+const dataControler = require("./helper functions/dataControler")
 
 router.post('/',(req,res,next) => {
    var username = req.body.username;
+   console.log(username + " post username")
    var password = req.body.password;
-    if(sqlHelper.getData(function(result) {
-        if(result.rowsAffected[0] > 0) {
+    if(dataControler.getUser(function(result) {
+        if(result != null) {
                 //console.log(result.recordset[0].user_name + " result");
-            if(result.recordset[0].user_name == username && result.recordset[0].password == password) {
+            if(result.username == username && result.password == password) {
                 let accsess=""
-                switch(result.recordset[0].entitlement) {
+                switch(result.entitlement) {
                     case 0:
                         accsess="none";
                         break;

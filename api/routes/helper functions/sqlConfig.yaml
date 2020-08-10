@@ -12,4 +12,4 @@ MySqlonnectionConfig:
 # mySql= my Sql
 # mSql = microsoft sql
 flags:
-  databace: 'mySql'
+  databace: 'mSql'

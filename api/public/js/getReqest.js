@@ -23,7 +23,7 @@ $(document).ready(function() {
             crossDomain: true,
             dataType: 'JSON',
             url: 'http://localhost:3000/products',
-            data: {username: $("#username").val() },
+            data: {username: $("#username").val(), apiKey: sessionStorage.ApiKey },
             success: function(jsondata){
                 console.log(jsondata);
             }

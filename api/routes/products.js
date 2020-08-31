@@ -18,8 +18,8 @@ router.post('/',(req,res,next)=> {
             key: apiKey
         });
     } else {
-        res.status(404).json( {
-            message: "no permitoon"
+        res.status(401).json( {
+            message: "no permision"
         });
     }
    },apiKey,2); 

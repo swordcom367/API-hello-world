@@ -1,6 +1,8 @@
 const yaml = require('js-yaml')
 const fs = require('fs');
 const path = require('path');
+const mssql = require('mssql');
+const mysql = require('mysql');
 // sql impmentation
 
 //grabs data from congig yaml file
@@ -59,7 +61,6 @@ module.exports.updateData = function updateData(changeData,table,Collums,findPar
 //---------------------------------privite 
 //returns array of json
 function getMySqlData(_callback,peramiter,dataConfig,table,Collums,findCondition) {
-    const mysql = require('mysql');
     var con = mysql.createConnection(dataConfig);
     con.connect(function(err) {
         if (err) { 
@@ -79,12 +80,11 @@ function getMySqlData(_callback,peramiter,dataConfig,table,Collums,findCondition
 }
 //returns an array of json
 function getMsqlData(_callback,peramiter,dataConfig,table,Collums,findCondition) { 
-    const sql = require('mssql');
-    let connection = sql.connect(dataConfig,(err) => {
+    let connection = mssql.connect(dataConfig,(err) => {
         if(err) {
         return console.log(err);
         } else {
-            var request = new sql.Request();
+            var request = new mssql.Request();
             console.log(peramiter +" paramiter")
             sqlGetStringAssembly(function(sqlQuery) {
                 request.query(sqlQuery, function (err, data) {
@@ -99,12 +99,11 @@ function getMsqlData(_callback,peramiter,dataConfig,table,Collums,findCondition)
 }
 //this is bad re work this becuse these are the same as get ms
 function setMsqlData(peramiters,dataConfig,table,Collums,findCondition) {
-    const sql = require('mssql');
-    let connection = sql.connect(dataConfig,(err) => {
+    let connection = mssql.connect(dataConfig,(err) => {
         if(err) {
         return console.log(err);
         } else {
-            var request = new sql.Request();
+            var request = new mssql.Request();
             sqlSetStringAssembly(function(sqlQuery) {
                 request.query(sqlQuery, function (err, data) {
                     if (err) console.log(err)
@@ -114,12 +113,11 @@ function setMsqlData(peramiters,dataConfig,table,Collums,findCondition) {
     });
 }
 function updateMsqlData(changeParam,dataConfig,table,Collums,findParam,conndition) {
-    const sql = require('mssql');
-    let connection = sql.connect(dataConfig,(err) => {
+    let connection = mssql.connect(dataConfig,(err) => {
         if(err) {
         return console.log(err);
         } else {
-            var request = new sql.Request();
+            var request = new mssql.Request();
             sqlUpdateStringAssembly(function(sqlQuery) {
                 request.query(sqlQuery, function (err, data) {
                     if (err) console.log(err)
@@ -205,7 +203,6 @@ module.exports.readYaml = function readYaml(_callback) {
         if (err) {
             return console.log(err);
         }
-        console.log("shit");
         _callback(yaml.safeLoad(data));
     });
 }
